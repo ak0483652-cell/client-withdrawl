@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payout Desk</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Payout Desk</h1>
+    <div class="row">
+      <nav id="tabs" hidden>
+        <button id="tab-user" aria-selected="true">Withdraw</button>
+        <button id="tab-admin" aria-selected="false">Admin</button>
+      </nav>
+      <button class="btn ghost sm" id="logout" hidden>Log out</button>
+    </div>
+  </header>
+
+  <!-- Login -->
+  <form class="panel" id="authForm" hidden>
+    <div><h2>Log in</h2><p class="muted">New here? Enter an email and password and press Sign up.</p></div>
+    <label for="a-email">Email<input type="email" id="a-email" autocomplete="email"></label>
+    <label for="a-pass">Password<input type="password" id="a-pass" autocomplete="current-password" minlength="6"></label>
+    <div class="err" id="a-err" role="alert"></div>
+    <div class="row">
+      <button class="btn" type="submit" id="a-login">Log in</button>
+      <button class="btn ghost" type="button" id="a-signup">Sign up</button>
+    </div>
+  </form>
+
+  <!-- User panel -->
+  <section id="userPane" class="wrap" hidden>
+    <form class="panel" id="form" autocomplete="off">
+      <div><h2>Request a withdrawal</h2><p class="muted">After the admin approves, the money is sent to the FamPay / UPI ID you enter here.</p></div>
+      <label for="f-name">Your name<input type="text" id="f-name" maxlength="60" placeholder="Rahul Sharma"></label>
+      <label for="f-upi">Your FamPay / UPI ID<input type="text" id="f-upi" maxlength="60" placeholder="9876543210@fam"></label>
+      <label for="f-amt">Amount (₹)<input type="number" id="f-amt" min="1" max="100000" step="1" placeholder="500"></label>
+      <div class="err" id="f-err" role="alert"></div>
+      <div class="row"><button class="btn" id="f-go" type="submit">Send request</button><span class="muted" id="f-state"></span></div>
+    </form>
+    <div class="panel"><h2>Your requests</h2><div id="mine"></div></div>
+  </section>
+
+  <!-- Admin panel -->
+  <section id="adminPane" class="wrap" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="panel">
+      <div class="row between"><h2>Pending requests</h2>
+        <div class="row">
+          <button class="btn ghost sm" id="selAll">Select all</button>
+          <button class="btn sm" id="approveSel">Approve selected</button>
+          <button class="btn bad sm" id="rejectSel">Reject selected</button>
+        </div>
+      </div>
+      <div class="err" id="adm-err" role="alert"></div>
+      <div id="pending"></div>
+    </div>
+    <div class="panel">
+      <div class="row between"><h2>Approved, waiting for payment</h2><button class="btn ghost sm" id="paidAll">Mark all paid</button></div>
+      <p class="note">This site cannot move money. Pay each person from your FamPay app (copy the UPI ID and amount below), then press Mark paid.</p>
+      <div id="approved"></div>
+    </div>
+    <div class="panel"><h2>History</h2><div id="history"></div></div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
